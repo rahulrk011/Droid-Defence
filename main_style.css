@@ -1,0 +1,112 @@
+*{
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+body{
+    overflow: hidden;
+}
+.container{
+    width:100%;
+    height:100vh;
+    background-image: linear-gradient(rgba(4, 3, 4, 0.1),rgba(2, 1, 2, 0.4)),url('space_background.jpg');
+    background-position: center;
+    background-size: cover;
+    padding-left: 10%;
+    padding-right: 2%;
+}
+.navbar{
+    height:10%;
+    display: flex;
+    align-items: center;
+}
+.logo{
+    width:50px;
+    cursor:pointer;
+    transition: 0.5s ease-in-out;
+}
+h1{
+    color: #fff;
+    font-size: 100px;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+#def{
+    color: rgb(28, 101, 228);
+}
+p{
+    color:#fff;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 1.5;
+}
+.row{
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+    height:90%;
+    overflow: hidden;
+    
+}
+.col{
+    flex-basis: 50%;
+}
+.card{
+    width:250px;
+    height:350px;
+    display: inline-block;
+    border-radius: 20px;
+    padding: 15px 25px ;
+    margin:10px 15px 0px 10px;
+    background-image:linear-gradient(rgba(8, 7, 8, 0.096),rgba(14, 12, 14, 0.4)),url('space_background.jpg');
+    background-size: cover;
+    border: 5px solid white;
+    transition:0.5s ease;
+}
+h4{
+    font-size: 40px;
+    color:white;
+    margin:2px;
+    transition:0.3s ease;
+}
+.card p{
+    color:rgb(8, 216, 235);;
+    font-weight: bold;
+    font-size: 15px;
+    transition:0.5s ease;
+}
+.card button{
+    padding:10px 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color:white;
+    font-weight: bolder;
+    border-radius: 15px;
+    border: 3px solid white;
+    background-color:rgb(28, 101, 228);
+    transition: 0.3s ease;
+}
+
+.card button:hover{
+    background-color: rgb(236, 236, 17);
+    color:rgb(230, 32, 32);
+    font-size:25px;
+}
+
+.card:hover{
+    width:260px;
+    height:380px;
+    border:5px solid rgb(234, 9, 238);
+}
+.card:hover #h1{
+    color: green;
+}
+.card:hover #h2{
+    color: rgb(240, 115, 13);
+}
+.card:hover p{
+    color:white;
+    font-size: 16.5px;
+}
+.logo:hover{
+    width:60px;
+}
