@@ -27,8 +27,13 @@ var bullethit=new Audio('bullethit.mp3');
 var enemyhit=new Audio('enemyhit.mp3');
 var bullet_sound=new Audio('bullet.mp3');
 var bg=new Audio('bgm.mp3');
+var gameover=new Audio('gameover.mp3');
+gameover.volume=1;
 var time=0;
 
+document.querySelector('.pa').addEventListener('click',()=>{
+    window.location.reload();
+})
 var exit=0;
 var hiscore;
 if(!(localStorage.getItem('Hiscore'))){
@@ -55,7 +60,7 @@ setInterval(()=>{
         bullet_sound.play();
         bullets.push(b);
     }
-},150)
+},300)
 
 setInterval(()=>{
     if(gameStatus==1)
@@ -162,8 +167,8 @@ class Enemy{
                         hiscore=score;
                         localStorage.setItem('Hiscore',hiscore);
                     }
-                    alert('gameOver')
-                    window.location.reload();
+                    gameover.play();
+                    exit=1;
                 }
             }
         }else{
@@ -186,8 +191,8 @@ class Enemy{
                     hiscore=score;
                     localStorage.setItem('Hiscore',hiscore);
                 }
-                alert('gameOver')
-                window.location.reload();
+                gameover.play();
+               exit=1
             }
 
         }
@@ -207,28 +212,17 @@ function updatePos(){
     if(keys['d']){
 
         if(!(player.x+player.w-20 > canvas.width)){
-            if(!(player.y<500 && player.y>320 && player.x+player.w-20>600 && player.x+player.w-20<700 ))
+            
             player.x+=player.speed;
-        }
-    }
+        
+    }}
     if(keys['a']){
             if(!(player.x-25 <0)){
-                if(!(player.y<500 && player.y>320 && player.x-25<800 && player.x-25>700))
+                
                 player.x-=player.speed;
             }
 }
-if(keys['w']){
-    if(!(player.y-25 <0)){
-        if(!(player.x<800 && player.x>600 && player.y-20<500 && player.y-20>400))
-        player.y-=player.speed1;
-    }
-}
-if(keys['s']){
-    if(!(player.y+player.h-20 > canvas.height)){
-        if(!(player.x<800 && player.x>600 && player.y+player.h-20>280 && player.y+player.h-20<400))
-        player.y+=player.speed1;
-    }
-}
+
 if(keys[' ']){
     bulletactiv=1; 
 }else{
@@ -246,7 +240,7 @@ function update(){
         ctx.fillText('Press ENTER to start',canvas.width/2-200,canvas.height/2)
     }
     else if(gameStatus==1){
-    
+    Checkexit()
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
     ctx.font='15px serif';
@@ -390,18 +384,18 @@ this.a=a;}
         ctx.drawImage(bu,this.x-5,this.y-15,30,30);
     }
     update(){
-        if(this.a>Math.PI/2 && this.a<Math.PI*1.5){
-        this.y+=bullet_speed;
-        this.x-=(bullet_speed*Math.tan(this.a));}
-        else if(this.a==Math.PI/2){
-            this.x+=bullet_speed
-        }else if(this.a==Math.PI*1.5){
-            this.x-=bullet_speed;
-        }
-        else{
-            this.y-=bullet_speed;
-            this.x+=(bullet_speed*Math.tan(this.a));
-        }
+        if(this.a>Math.PI/2+0.25 && this.a<Math.PI*1.5-0.25){
+            this.y+=bullet_speed;
+            this.x-=(bullet_speed*Math.tan(this.a));}
+            else if(this.a>=Math.PI/2-0.25 && this.a<=Math.PI/2+0.25){
+                this.x+=35
+            }else if(this.a>=Math.PI*1.5-0.25 && this.a<=Math.PI*1.5+0.25){
+                this.x-=35;
+            }
+            else{
+                this.y-=bullet_speed;
+                this.x+=(bullet_speed*Math.tan(this.a));
+            }
         
     }
     check(i){
@@ -422,13 +416,6 @@ document.addEventListener('keydown',function(e){
     if(e.key=='d'){
         keys['d']=true;
     }
-
-    if(e.key=='w'){
-        keys['w']=true;
-    }
-    if(e.key=='s'){
-        keys['s']=true;
-    }
 })
 document.addEventListener('keyup',function(e){
     if(e.key==' '){
@@ -446,12 +433,7 @@ document.addEventListener('keyup',function(e){
     if(e.key=='d'){
         keys['d']=false;
     }
-    if(e.key=='w'){
-        keys['w']=false;
-    }
-    if(e.key=='s'){
-        keys['s']=false;
-    }
+
 })
 
 function createEnemies(){
@@ -506,3 +488,15 @@ function updateBlasts() {
     return angle;
 }
  
+function Checkexit(){
+    if(exit==1){
+        bg.pause();
+        gameStatus=0;
+        
+        let popup=document.querySelector('.gopopup');
+        popup.classList.add('activ');
+        
+        
+
+    }
+}
