@@ -40,6 +40,7 @@ var bullethit=new Audio('bullethit.mp3');
 var enemyhit=new Audio('enemyhit.mp3');
 var bullet_sound=new Audio('bullet.mp3');
 var bg=new Audio('bgm.mp3');
+var gameover=new Audio('gameover.mp3');
 var time=0;
 var exit=0;
 var hiscore;
@@ -47,6 +48,10 @@ if(!(localStorage.getItem('Hiscore'))){
     localStorage.setItem('Hiscore',0)
 }
 hiscore=localStorage.getItem('Hiscore');
+
+document.querySelector('.pa').addEventListener('click',()=>{
+    window.location.reload();
+})
 
 setInterval(()=>{
     if(gameStatus==1){
@@ -91,7 +96,7 @@ setInterval(()=>{
         bullet_sound.play();
         bullets.push(b);
     }
-},150)
+},200)
 
 
 
@@ -202,8 +207,8 @@ class Enemy{
                         hiscore=score;
                         localStorage.setItem('Hiscore',hiscore);
                     }
-                    alert('gameOver')
-                    window.location.reload();
+                    gameover.play();
+                    exit=1;
                 }
             }}else{
                 
@@ -233,8 +238,8 @@ class Enemy{
                     hiscore=score;
                     localStorage.setItem('Hiscore',hiscore);
                 }
-                alert('gameOver')
-                window.location.reload();
+                gameover.play();
+                    exit=1;
             }
 
         }
@@ -288,16 +293,14 @@ if(keys[' ']){
 // createEnemies();
 
 function update(){
-    if(exit==1){
-        window.location.reload(0);
-    }
+   
     if(gameStatus==0){
         ctx.fillStyle='white';
         ctx.font='50px serif'
         ctx.fillText('Press ENTER to start',canvas.width/2-200,canvas.height/2)
     }
     else if(gameStatus==1){
-    
+    Checkexit();
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
     ctx.font='15px serif';
@@ -411,7 +414,7 @@ function update(){
     
   }
   if(shieldOn==1){
-    if(!(ptime-lptime >10)){
+    if(!(ptime-lptime >15)){
         ctx.beginPath();
         ctx.strokeStyle='white';
         ctx.arc(home.x+252,home.y+147,110,0,Math.PI*2);
@@ -489,13 +492,13 @@ this.a=a;}
         ctx.drawImage(bu,this.x-5,this.y-15,30,30);
     }
     update(){
-        if(this.a>Math.PI/2 && this.a<Math.PI*1.5){
+        if(this.a>Math.PI/2+0.15 && this.a<Math.PI*1.5-0.15){
         this.y+=bullet_speed;
         this.x-=(bullet_speed*Math.tan(this.a));}
-        else if(this.a==Math.PI/2){
-            this.x+=bullet_speed
-        }else if(this.a==Math.PI*1.5){
-            this.x-=bullet_speed;
+        else if(this.a>=Math.PI/2-0.15 && this.a<=Math.PI/2+0.15){
+            this.x+=35
+        }else if(this.a>=Math.PI*1.5-0.15 && this.a<=Math.PI*1.5+0.15){
+            this.x-=35;
         }
         else{
             this.y-=bullet_speed;
@@ -633,15 +636,15 @@ function bulletHome(x,y,i){
             enemy_bul.splice(i,1);
             let blast = new Blast(x, y, 500);  
             blasts.push(blast);
-            width_home-=0.25;
+            width_home-=0.5;
             if(width_home<=0){
                 // make a popup appear that game over then a play again button
                 if(score>hiscore){
                     hiscore=score;
                     localStorage.setItem('Hiscore',hiscore);
                 }
-                alert('gameOver')
-                exit=1;
+                gameover.play();
+                    exit=1;
             }
 }}}else{
     if(!(enemy_bul.length==0)){
@@ -656,15 +659,15 @@ if(x+20>player.x-player.w+20 && x+20<player.x+player.w && y+50<player.y+player.h
     let blast = new Blast(x,y, 500);  
     blasts.push(blast);
     
-    width_player-=0.5
+    width_player-=1
     if(width_player<0){
         // make a popup appear that game over then a play again button
         if(score>hiscore){
             hiscore=score;
             localStorage.setItem('Hiscore',hiscore);
         }
-        alert('gameOver')
-        exit=1;
+        gameover.play();
+                    exit=1;
             }
 
         }
@@ -699,4 +702,13 @@ class powerup{
     }
 
 }
+}
+function Checkexit(){
+    if(exit==1){
+        bg.pause();
+        gameStatus=0;
+        
+        let popup=document.querySelector('.gopopup');
+        popup.classList.add('activ');
+    }
 }
