@@ -22,7 +22,7 @@ body{
 .logo{
     width:50px;
     cursor:pointer;
-    transition: 0.5s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 h1{
     color: #fff;
