@@ -1,2 +1,2 @@
-Click the link below to play !! : 
+Click the link to play !! : 
  https://rahulrk011.github.io/Droid-Defence/
