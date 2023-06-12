@@ -52,6 +52,13 @@ hiscore=localStorage.getItem('Hiscore');
 document.querySelector('.pa').addEventListener('click',()=>{
     window.location.reload();
 })
+let start=document.querySelector('.start');
+start.classList.add('activ')
+document.querySelector('.play').addEventListener('click',()=>{
+    gameStatus=1;
+    start.classList.remove('activ');
+    bg.play();
+})
 
 setInterval(()=>{
     if(gameStatus==1){
@@ -709,6 +716,10 @@ function Checkexit(){
         gameStatus=0;
         
         let popup=document.querySelector('.gopopup');
+        if(hiscore==score){
+            document.querySelector('.text').innerHTML=`Good job !! You have created a record !! \nYour score is ${score}`;
+        }else{
+        document.querySelector('.text').innerHTML=`Your score is ${score}`}
         popup.classList.add('activ');
     }
 }
