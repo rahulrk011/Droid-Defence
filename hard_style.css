@@ -65,6 +65,12 @@ html{
     font-family:monospace;
     font-size: 4rem;
 }
+.text{
+    color:rgb(6, 240, 220);
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 2rem;
+}
 .buttons{
  display:flex;
  justify-content:space-between;
@@ -91,4 +97,58 @@ html{
     color:rgb(230, 32, 32);
     font-size: 22px;
     
+}
+.start{
+    position:fixed;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top:58%;
+    left:50%;
+    transform: translate(-50%,-50%) scale(0);
+    transition: 350ms ease-in-out;
+    border:8px solid rgb(250, 255, 250);
+    border-radius: 25px;
+    z-index:30;
+    background-image: url('spacebg.jpg');
+    background-size: cover;
+    background-position: center;
+    width:600px;
+    height:500px;
+}
+.start h1{
+    color:rgb(249, 242, 242);
+    font-family:monospace;
+    font-size: 2rem;
+}
+.start .section{
+    display:flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center; 
+    color:red;
+}
+.start button{
+    
+    padding:10px 10px;
+    margin-left:50px;
+    margin-right:50px;
+    cursor: pointer;
+    font-size: 20px;
+    color:white;
+    font-weight: bolder;
+    border-radius: 15px;
+    border: 3px solid white;
+    background-color:rgb(28, 101, 228);
+    transition: 0.3s ease-in-out;
+}
+.start button:hover{
+    background-color: rgb(236, 236, 17);
+    color:rgb(230, 32, 32);
+    font-size: 22px;
+    
+}
+.start.activ{
+    transform: translate(-50%,-50%) scale(1);
 }
